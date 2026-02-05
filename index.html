@@ -246,6 +246,9 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         #hint { margin-top: 1.5rem; text-transform: uppercase; letter-spacing: 4px; font-weight: 800; font-size: 10px; background: rgba(0,0,0,0.3); border: 1px solid var(--lsp-gold); padding: 12px 28px; border-radius: 30px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+        .horse-icon { width: 45px; height: 45px; fill: var(--lsp-gold); }
     </style>
 </head>
 <body>
@@ -273,8 +276,8 @@
         </div>
 
         <div class="controls-wrapper">
-            <button id="shuffle-btn" class="btn-shuffle btn-lsp" onclick="toggleShuffle()">Xào Quẻ</button>
-            <button id="draw-btn" class="btn-draw btn-lsp" onclick="stopAndDraw()" disabled>Bốc Lộc</button>
+            <button id="shuffle-btn" class="btn-lsp btn-shuffle" onclick="toggleShuffle()">Xào Quẻ</button>
+            <button id="draw-btn" class="btn-lsp btn-draw" onclick="stopAndDraw()" disabled>Bốc Lộc</button>
         </div>
         <div id="hint">Chạm cổng Tân Xuân để bắt đầu</div>
     </div>
@@ -302,8 +305,8 @@
     </div>
 
     <script>
-        // API Key của bạn
-        const apiKey = "AIzaSyBtiYkc_dkzd-NFKR7Q6RkrtrBMkCcQcbs"; 
+        // LỖI Ở ĐÂY: Phải có dấu ngoặc kép bao quanh API Key
+        const apiKey = "AIzaSyAigG_rOjOXZrOogrc8xSn4OxIhJGaLd9U"; 
 
         let isProcessing = false, isShuffling = false, isPortalOpen = false, currentFortuneData = null;
 
@@ -327,7 +330,7 @@
 
         async function callGemini(prompt, isTTS = false) {
             if (!apiKey || apiKey === "") {
-                throw new Error("Mã khóa (API Key) bị thiếu.");
+                throw new Error("Mã khóa (API Key) bị thiếu hoặc sai định dạng.");
             }
             const model = isTTS ? "gemini-2.5-flash-preview-tts" : "gemini-2.5-flash-preview-09-2025";
             const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
@@ -349,33 +352,30 @@
                         required: ["score", "path", "actions", "summary", "type_picked"]
                     }
                 },
-                systemInstruction: { parts: [{ text: "Bạn là Thầy Bói tại LSP Agency 2026. Phán quẻ JSON cân bằng tuyệt đối giữa 3 loại (Tài Lộc, Sức Khỏe, Công Việc). Tuyệt đối không dùng từ AI trong nội dung." }] }
+                systemInstruction: { parts: [{ text: "Bạn là Thầy Bói tại LSP Agency 2026. Phán quẻ JSON cân bằng 3 loại (Tài Lộc, Sức Khỏe, Công Việc). Tuyệt đối không dùng từ AI." }] }
             };
 
             for (let i = 0; i < 3; i++) {
                 try {
                     const response = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-                    if (!response.ok) throw new Error();
+                    if (!response.ok) {
+                        const err = await response.json();
+                        throw new Error(err.error?.message || "Lỗi máy chủ Google");
+                    }
                     return await response.json();
                 } catch (e) {
+                    if (i === 2) throw e;
                     await new Promise(r => setTimeout(r, 1000 * (i + 1)));
                 }
             }
-            throw new Error("Kết nối máy chủ thất bại sau 3 lần thử.");
         }
 
         function handlePortalClick() {
             if (isProcessing) return;
             isPortalOpen = !isPortalOpen;
             const portal = document.getElementById('portal');
-            if (isPortalOpen) {
-                portal.classList.add('open');
-                document.getElementById('hint').style.opacity = '0';
-            } else {
-                portal.classList.remove('open');
-                document.getElementById('hint').style.opacity = '1';
-                if (isShuffling) toggleShuffle();
-            }
+            if (isPortalOpen) { portal.classList.add('open'); document.getElementById('hint').style.opacity = '0'; } 
+            else { portal.classList.remove('open'); document.getElementById('hint').style.opacity = '1'; if (isShuffling) toggleShuffle(); }
         }
 
         function toggleShuffle() {
@@ -419,7 +419,7 @@
             loader.style.display = 'block'; modal.style.display = 'flex';
             
             try {
-                const res = await callGemini(`Gieo một quẻ ngẫu nhiên cân bằng giữa Tài Lộc, Sức Khỏe hoặc Công Việc cho Xuân 2026.`);
+                const res = await callGemini(`Gieo một quẻ ngẫu nhiên cân bằng cho Xuân 2026.`);
                 let rawText = res.candidates[0].content.parts[0].text;
                 currentFortuneData = JSON.parse(rawText.replace(/^[^{]*|[^}]*$/g, '').trim());
                 
@@ -436,6 +436,7 @@
                 loader.style.display = 'none'; error.style.display = 'block';
                 stick.classList.remove('drop-stick');
                 document.getElementById('error-msg').innerText = "⚠️ " + err.message;
+                console.error(err);
             } finally { isProcessing = false; }
         }
 
