@@ -89,6 +89,7 @@
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             background: rgba(0,0,0,0.3);
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+            cursor: pointer;
         }
 
         .door {
@@ -103,7 +104,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
         }
         .door-left { left: 0; border-radius: 160px 0 0 20px; transform-origin: left; border-right: 2px solid var(--lsp-gold); }
         .door-right { right: 0; border-radius: 0 160px 20px 0; transform-origin: right; border-left: 2px solid var(--lsp-gold); }
@@ -246,9 +246,6 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         #hint { margin-top: 1.5rem; text-transform: uppercase; letter-spacing: 4px; font-weight: 800; font-size: 10px; background: rgba(0,0,0,0.3); border: 1px solid var(--lsp-gold); padding: 12px 28px; border-radius: 30px; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-
-        .horse-icon { width: 45px; height: 45px; fill: var(--lsp-gold); }
     </style>
 </head>
 <body>
@@ -262,29 +259,22 @@
 
         <div id="portal" class="portal-frame" onclick="handlePortalClick()">
             <div class="door door-left">
-                <svg class="horse-icon" viewBox="0 0 24 24"><path d="M19,2C19,2 17,2 16,3C15,4 15,5 14,7C13,9 12.5,10 11,10C9.5,10 8,10 7,9C6,8 5,6 5,6C5,6 4.5,6.5 4,7C3.5,7.5 3,8.5 3,10C3,11.5 3.5,13 4,14C4.5,15 6,17 7,18C8,19 10,21 13,21C16,21 18,20 19,19C20,18 21,16 21,14C21,12 21,10 20,8C19,6 19,4 19,2M13,19C11,19 9.5,18 9,17C8.5,16 8.5,15 9,14C9.5,13 11,12 13,12C15,12 16.5,13 17,14C17.5,15 17.5,16 17,17C16.5,18 15,19 13,19Z"/></svg>
+                <svg width="45" height="45" fill="#ffd700" viewBox="0 0 24 24"><path d="M19,2C19,2 17,2 16,3C15,4 15,5 14,7C13,9 12.5,10 11,10C9.5,10 8,10 7,9C6,8 5,6 5,6C5,6 4.5,6.5 4,7C3.5,7.5 3,8.5 3,10C3,11.5 3.5,13 4,14C4.5,15 6,17 7,18C8,19 10,21 13,21C16,21 18,20 19,19C20,18 21,16 21,14C21,12 21,10 20,8C19,6 19,4 19,2M13,19C11,19 9.5,18 9,17C8.5,16 8.5,15 9,14C9.5,13 11,12 13,12C15,12 16.5,13 17,14C17.5,15 17.5,16 17,17C16.5,18 15,19 13,19Z"/></svg>
             </div>
             <div class="door door-right">
-                <svg class="horse-icon" viewBox="0 0 24 24"><path d="M19,2C19,2 17,2 16,3C15,4 15,5 14,7C13,9 12.5,10 11,10C9.5,10 8,10 7,9C6,8 5,6 5,6C5,6 4.5,6.5 4,7C3.5,7.5 3,8.5 3,10C3,11.5 3.5,13 4,14C4.5,15 6,17 7,18C8,19 10,21 13,21C16,21 18,20 19,19C20,18 21,16 21,14C21,12 21,10 20,8C19,6 19,4 19,2M13,19C11,19 9.5,18 9,17C8.5,16 8.5,15 9,14C9.5,13 11,12 13,12C15,12 16.5,13 17,14C17.5,15 17.5,16 17,17C16.5,18 15,19 13,19Z"/></svg>
+                <svg width="45" height="45" fill="#ffd700" viewBox="0 0 24 24"><path d="M19,2C19,2 17,2 16,3C15,4 15,5 14,7C13,9 12.5,10 11,10C9.5,10 8,10 7,9C6,8 5,6 5,6C5,6 4.5,6.5 4,7C3.5,7.5 3,8.5 3,10C3,11.5 3.5,13 4,14C4.5,15 6,17 7,18C8,19 10,21 13,21C16,21 18,20 19,19C20,18 21,16 21,14C21,12 21,10 20,8C19,6 19,4 19,2M13,19C11,19 9.5,18 9,17C8.5,16 8.5,15 9,14C9.5,13 11,12 13,12C15,12 16.5,13 17,14C17.5,15 17.5,16 17,17C16.5,18 15,19 13,19Z"/></svg>
             </div>
 
             <div id="cards-area" class="cards-container">
-                <div class="fortune-card card-0" id="card-0">
-                    <svg class="w-12 h-12 opacity-30 fill-white" viewBox="0 0 24 24"><path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z"/></svg>
-                </div>
-                <div class="fortune-card card-1" id="card-1">
-                    <div class="fortune-stick" id="stick"></div>
-                    <svg class="horse-icon opacity-70" viewBox="0 0 24 24"><path d="M19,2C19,2 17,2 16,3C15,4 15,5 14,7C13,9 12.5,10 11,10C9.5,10 8,10 7,9C6,8 5,6 5,6C5,6 4.5,6.5 4,7C3.5,7.5 3,8.5 3,10C3,11.5 3.5,13 4,14C4.5,15 6,17 7,18C8,19 10,21 13,21C16,21 18,20 19,19C20,18 21,16 21,14C21,12 21,10 20,8C19,6 19,4 19,2M13,19C11,19 9.5,18 9,17C8.5,16 8.5,15 9,14C9.5,13 11,12 13,12C15,12 16.5,13 17,14C17.5,15 17.5,16 17,17C16.5,18 15,19 13,19Z"/></svg>
-                </div>
-                <div class="fortune-card card-2" id="card-2">
-                    <svg class="w-12 h-12 opacity-30 fill-white" viewBox="0 0 24 24"><path d="M12,22L1,3H23L12,22Z"/></svg>
-                </div>
+                <div class="fortune-card card-0" id="card-0"><svg class="w-12 h-12 opacity-30 fill-white" viewBox="0 0 24 24"><path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z"/></svg></div>
+                <div class="fortune-card card-1" id="card-1"><div class="fortune-stick" id="stick"></div><svg width="45" height="45" fill="#ffd700" opacity="0.7" viewBox="0 0 24 24"><path d="M19,2C19,2 17,2 16,3C15,4 15,5 14,7C13,9 12.5,10 11,10C9.5,10 8,10 7,9C6,8 5,6 5,6C5,6 4.5,6.5 4,7C3.5,7.5 3,8.5 3,10C3,11.5 3.5,13 4,14C4.5,15 6,17 7,18C8,19 10,21 13,21C16,21 18,20 19,19C20,18 21,16 21,14C21,12 21,10 20,8C19,6 19,4 19,2M13,19C11,19 9.5,18 9,17C8.5,16 8.5,15 9,14C9.5,13 11,12 13,12C15,12 16.5,13 17,14C17.5,15 17.5,16 17,17C16.5,18 15,19 13,19Z"/></svg></div>
+                <div class="fortune-card card-2" id="card-2"><svg class="w-12 h-12 opacity-30 fill-white" viewBox="0 0 24 24"><path d="M12,22L1,3H23L12,22Z"/></svg></div>
             </div>
         </div>
 
         <div class="controls-wrapper">
-            <button id="shuffle-btn" class="btn-lsp btn-shuffle" onclick="toggleShuffle()">Xào Quẻ</button>
-            <button id="draw-btn" class="btn-lsp btn-draw" onclick="stopAndDraw()" disabled>Bốc Lộc</button>
+            <button id="shuffle-btn" class="btn-shuffle btn-lsp" onclick="toggleShuffle()">Xào Quẻ</button>
+            <button id="draw-btn" class="btn-draw btn-lsp" onclick="stopAndDraw()" disabled>Bốc Lộc</button>
         </div>
         <div id="hint">Chạm cổng Tân Xuân để bắt đầu</div>
     </div>
@@ -312,8 +302,8 @@
     </div>
 
     <script>
-        // QUAN TRỌNG: Bạn phải dán API Key của mình vào đây để hệ thống hoạt động!
-        const apiKey = ""; 
+        // API Key của bạn
+        const apiKey = "AIzaSyBtiYkc_dkzd-NFKR7Q6RkrtrBMkCcQcbs"; 
 
         let isProcessing = false, isShuffling = false, isPortalOpen = false, currentFortuneData = null;
 
@@ -336,14 +326,14 @@
         createPetals();
 
         async function callGemini(prompt, isTTS = false) {
-            if (!apiKey) {
-                throw new Error("Missing API Key. Hãy dán API Key vào mã nguồn.");
+            if (!apiKey || apiKey === "") {
+                throw new Error("Mã khóa (API Key) bị thiếu.");
             }
             const model = isTTS ? "gemini-2.5-flash-preview-tts" : "gemini-2.5-flash-preview-09-2025";
             const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
             
             const payload = isTTS ? {
-                contents: [{ parts: [{ text: `Phán bằng tiếng Việt ấm áp: ${prompt}` }] }],
+                contents: [{ parts: [{ text: `Phán bằng tiếng Việt: ${prompt}` }] }],
                 generationConfig: { responseModalities: ["AUDIO"], speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } } }
             } : {
                 contents: [{ parts: [{ text: prompt }] }],
@@ -359,7 +349,7 @@
                         required: ["score", "path", "actions", "summary", "type_picked"]
                     }
                 },
-                systemInstruction: { parts: [{ text: "Bạn là Thầy Bói tại LSP Agency 2026. Phân tích quẻ JSON. 'score' (0-10). 'path' vận trình năm Ngọ. 'actions' 3 bước bứt phá. 'summary' câu chúc Tết. 'type_picked' loại quẻ (Tài Lộc, Sức Khỏe, Công Việc) chọn ngẫu nhiên đồng đều. Tuyệt đối không dùng từ AI." }] }
+                systemInstruction: { parts: [{ text: "Bạn là Thầy Bói tại LSP Agency 2026. Phán quẻ JSON cân bằng tuyệt đối giữa 3 loại (Tài Lộc, Sức Khỏe, Công Việc). Tuyệt đối không dùng từ AI trong nội dung." }] }
             };
 
             for (let i = 0; i < 3; i++) {
@@ -371,7 +361,7 @@
                     await new Promise(r => setTimeout(r, 1000 * (i + 1)));
                 }
             }
-            throw new Error("Connection failed after retries");
+            throw new Error("Kết nối máy chủ thất bại sau 3 lần thử.");
         }
 
         function handlePortalClick() {
@@ -392,17 +382,10 @@
             if (isProcessing) return;
             isShuffling = !isShuffling;
             const cards = [document.getElementById('card-0'), document.getElementById('card-1'), document.getElementById('card-2')];
-            const shuffleBtn = document.getElementById('shuffle-btn');
-            const drawBtn = document.getElementById('draw-btn');
-            
-            if (isShuffling) {
-                cards.forEach((card, i) => card.classList.add(`card-anim-${i}`));
-                shuffleBtn.classList.add('active'); shuffleBtn.innerText = "Dừng Lại";
-                drawBtn.disabled = false;
-            } else {
-                cards.forEach((card, i) => card.classList.remove(`card-anim-${i}`));
-                shuffleBtn.classList.remove('active'); shuffleBtn.innerText = "Xào Quẻ";
-            }
+            const sBtn = document.getElementById('shuffle-btn');
+            const dBtn = document.getElementById('draw-btn');
+            if (isShuffling) { cards.forEach((c, i) => c.classList.add(`card-anim-${i}`)); sBtn.classList.add('active'); sBtn.innerText = "Dừng Lại"; dBtn.disabled = false; } 
+            else { cards.forEach((c, i) => c.classList.remove(`card-anim-${i}`)); sBtn.classList.remove('active'); sBtn.innerText = "Xào Quẻ"; }
         }
 
         function stopAndDraw() {
@@ -419,7 +402,7 @@
                         document.getElementById('draw-btn').disabled = true;
                         const stick = document.getElementById('stick');
                         stick.classList.add('drop-stick');
-                        setTimeout(() => { stick.classList.remove('drop-stick'); handleLixi(); }, 1000);
+                        setTimeout(handleLixi, 1000);
                     }
                 }, index * 400); 
             });
@@ -427,12 +410,17 @@
 
         async function handleLixi() {
             const modal = document.getElementById('result-modal');
-            analysisContent.style.display = 'none'; errorContainer.style.display = 'none';
+            const analysis = document.getElementById('analysis-content');
+            const loader = document.getElementById('loader');
+            const error = document.getElementById('error-container');
+            const stick = document.getElementById('stick');
+
+            analysis.style.display = 'none'; error.style.display = 'none';
             loader.style.display = 'block'; modal.style.display = 'flex';
             
             try {
-                const result = await callGemini(`Gieo một quẻ ngẫu nhiên (Tài Lộc, Sức Khỏe hoặc Công Việc) cho Xuân 2026.`);
-                let rawText = result.candidates[0].content.parts[0].text;
+                const res = await callGemini(`Gieo một quẻ ngẫu nhiên cân bằng giữa Tài Lộc, Sức Khỏe hoặc Công Việc cho Xuân 2026.`);
+                let rawText = res.candidates[0].content.parts[0].text;
                 currentFortuneData = JSON.parse(rawText.replace(/^[^{]*|[^}]*$/g, '').trim());
                 
                 document.getElementById('que-title').innerText = "Lộc " + currentFortuneData.type_picked;
@@ -441,11 +429,13 @@
                 document.getElementById('action-list').innerHTML = currentFortuneData.actions.map((act, i) => `
                     <div class="step-item"><div class="step-num"><span>${i+1}</span></div><div class="text-gray-700 font-medium">${act}</div></div>
                 `).join('');
-                loader.style.display = 'none'; analysisContent.style.display = 'block';
+                loader.style.display = 'none'; analysis.style.display = 'block';
+                stick.classList.remove('drop-stick');
                 createFirework();
             } catch (err) {
-                loader.style.display = 'none'; errorContainer.style.display = 'block';
-                document.getElementById('error-msg').innerText = err.message.includes("API Key") ? "⚠️ Vui lòng dán API Key vào mã nguồn để tiếp tục!" : "⚠️ Kết nối bị gián đoạn, hãy thử lại!";
+                loader.style.display = 'none'; error.style.display = 'block';
+                stick.classList.remove('drop-stick');
+                document.getElementById('error-msg').innerText = "⚠️ " + err.message;
             } finally { isProcessing = false; }
         }
 
