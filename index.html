@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSP Creative Agency - Xuân Bính Ngọ 2026 ✨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;700;900&display=swap');
+
+        :root {
+            --lsp-gold: #ffd700;
+            --lsp-red: #d40000;
+            --lsp-dark-red: #8b0000;
+            /* Màu quẻ */
+            --que-gold: linear-gradient(135deg, #FFD700, #F39C12);
+            --que-red: linear-gradient(135deg, #FF4B2B, #FF416C);
+            --que-yellow: linear-gradient(135deg, #fff3b0, #ffd700);
+        }
+
+        body {
+            background: radial-gradient(circle at center, var(--lsp-red), var(--lsp-dark-red));
+            color: white;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .petal {
+            position: absolute;
+            top: -10%;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
+        .scene {
+            perspective: 1500px;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            z-index: 10;
+            position: relative;
+        }
+
+        .brand-container {
+            margin-bottom: 2rem;
+            text-align: center;
+            z-index: 50;
+        }
+
+        .brand-main {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--lsp-gold);
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            line-height: 1;
+        }
+
+        .brand-sub {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            font-weight: 700;
+            margin-top: 5px;
+            color: white;
+            opacity: 0.9;
+        }
+
+        .portal-frame {
+            position: relative;
+            width: 320px;
+            height: 460px;
+            border: 6px double var(--lsp-gold);
+            border-radius: 160px 160px 20px 20px;
+            transform-style: preserve-3d;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(0,0,0,0.3);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .door {
+            position: absolute;
+            width: 50%; height: 100%;
+            background: rgba(180, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            transition: transform 1.5s cubic-bezier(0.6, 0.05, 0.1, 1);
+            z-index: 30;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .door-left { left: 0; border-radius: 160px 0 0 20px; transform-origin: left; border-right: 2px solid var(--lsp-gold); }
+        .door-right { right: 0; border-radius: 0 160px 20px 0; transform-origin: right; border-left: 2px solid var(--lsp-gold); }
+        
+        .portal-frame.open .door-left { transform: rotateY(-145deg); }
+        .portal-frame.open .door-right { transform: rotateY(145deg); }
+
+        .cards-container {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease 0.8s;
+            z-index: 5;
+        }
+        .portal-frame.open .cards-container { opacity: 1; pointer-events: auto; }
+
+        .fortune-card {
+            position: absolute;
+            width: 100px;
+            height: 150px;
+            border: 2px solid var(--lsp-gold);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes shuffle0 {
+            0%, 100% { transform: translateX(-110px) translateZ(0); z-index: 10; }
+            33% { transform: translateX(0) translateZ(50px); z-index: 20; }
+            66% { transform: translateX(110px) translateZ(0); z-index: 10; }
+        }
+        @keyframes shuffle1 {
+            0%, 100% { transform: translateX(0) translateZ(50px); z-index: 20; }
+            33% { transform: translateX(110px) translateZ(0); z-index: 10; }
+            66% { transform: translateX(-110px) translateZ(0); z-index: 10; }
+        }
+        @keyframes shuffle2 {
+            0%, 100% { transform: translateX(110px) translateZ(0); z-index: 10; }
+            33% { transform: translateX(-110px) translateZ(0); z-index: 10; }
+            66% { transform: translateX(0) translateZ(50px); z-index: 20; }
+        }
+
+        .card-anim-0 { animation: shuffle0 0.4s infinite linear; }
+        .card-anim-1 { animation: shuffle1 0.4s infinite linear; }
+        .card-anim-2 { animation: shuffle2 0.4s infinite linear; }
+
+        .card-0 { transform: translateX(-110px); background: var(--que-red); }
+        .card-1 { transform: translateX(0); z-index: 20; background: var(--que-gold); }
+        .card-2 { transform: translateX(110px); background: var(--que-yellow); }
+
+        .fortune-stick {
+            position: absolute;
+            width: 12px; height: 90px;
+            background: #fff; border-radius: 4px;
+            bottom: -20px; left: 50%;
+            transform: translateX(-50%) translateY(0);
+            z-index: -1; opacity: 0;
+            border-top: 15px solid #b30000;
+            box-shadow: 0 0 15px var(--lsp-gold);
+        }
+        .drop-stick { animation: dropAnim 1s ease-in forwards; }
+        @keyframes dropAnim {
+            0% { transform: translateX(-50%) translateY(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateX(-50%) translateY(180px); opacity: 0; }
+        }
+
+        .controls-wrapper {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease 1s;
+            pointer-events: none;
+        }
+        .portal-frame.open ~ .controls-wrapper {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .btn-lsp {
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            font-size: 0.8rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border: 2px solid var(--lsp-gold);
+        }
+
+        .btn-shuffle { background: transparent; color: var(--lsp-gold); backdrop-filter: blur(5px); }
+        .btn-shuffle.active { background: var(--lsp-gold); color: var(--lsp-dark-red); }
+        .btn-draw { background: white; color: #000; border-color: white; }
+        .btn-draw:disabled { opacity: 0.3; filter: grayscale(1); }
+        .btn-lsp:hover:not(:disabled) { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(255, 215, 0, 0.4); }
+
+        #result-modal {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.95);
+            display: none; align-items: center; justify-content: center;
+            z-index: 200; backdrop-filter: blur(25px); padding: 20px;
+        }
+
+        .modal-content {
+            background: #fff; color: #1a1a1a; padding: 40px 30px; border-radius: 24px;
+            text-align: center; max-width: 500px; width: 100%;
+            transform: scale(0.8); animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            box-shadow: 0 0 50px rgba(212, 0, 0, 0.5); border: 5px solid var(--lsp-gold);
+            max-height: 85vh; overflow-y: auto;
+            background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+        }
+
+        .score-box {
+            position: relative; width: 110px; height: 110px; margin: 0 auto 15px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: #fff5e6; border-radius: 50%; border: 6px solid #d40000;
+            color: #d40000; box-shadow: 0 5px 15px rgba(212, 0, 0, 0.2);
+        }
+        .score-val { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 3rem; line-height: 1; }
+        .section-title { font-weight: 800; text-transform: uppercase; font-size: 0.8rem; color: #8b4513; margin-bottom: 10px; letter-spacing: 1px; }
+        .analysis-text { font-size: 1.15rem; line-height: 1.6; color: #222; margin-bottom: 25px; text-align: left; background: #fffaf0; padding: 20px; border-radius: 12px; border-left: 6px solid #d40000; font-style: italic; font-family: 'Playfair Display', serif; }
+        .step-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; padding: 15px; background: #fff; border: 1px solid #ffe4b5; border-radius: 12px; font-size: 0.9rem; text-align: left; }
+        .step-num { background: #d40000; color: var(--lsp-gold); width: 26px; height: 26px; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: 900; font-size: 0.8rem; transform: rotate(45deg); }
+        .step-num span { transform: rotate(-45deg); }
+
+        .loader { width: 50px; height: 50px; border: 6px solid #ffe4b5; border-top: 6px solid #d40000; border-radius: 50%; animation: spin 1s linear infinite; display: block; margin: 30px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        #hint { margin-top: 1.5rem; text-transform: uppercase; letter-spacing: 4px; font-weight: 800; font-size: 10px; background: rgba(0,0,0,0.3); border: 1px solid var(--lsp-gold); padding: 12px 28px; border-radius: 30px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+        .horse-icon { width: 45px; height: 45px; fill: var(--lsp-gold); }
+    </style>
+</head>
+<body>
+
+    <div class="scene">
+        <div id="petal-container"></div>
+        <div class="brand-container">
+            <div class="brand-main">LSP 2026</div>
+            <div class="brand-sub">Mã Đáo Thành Công</div>
+        </div>
+
+        <div id="portal" class="portal-frame" onclick="handlePortalClick()">
+            <div class="door door-left">
+                <svg class="horse-icon" viewBox="0 0 24 24"><path d="M19,2C19,2 17,2 16,3C15,4 15,5 14,7C13,9 12.5,10 11,10C9.5,10 8,10 7,9C6,8 5,6 5,6C5,6 4.5,6.5 4,7C3.5,7.5 3,8.5 3,10C3,11.5 3.5,13 4,14C4.5,15 6,17 7,18C8,19 10,21 13,21C16,21 18,20 19,19C20,18 21,16 21,14C21,12 21,10 20,8C19,6 19,4 19,2M13,19C11,19 9.5,18 9,17C8.5,16 8.5,15 9,14C9.5,13 11,12 13,12C15,12 16.5,13 17,14C17.5,15 17.5,16 17,17C16.5,18 15,19 13,19Z"/></svg>
+            </div>
+            <div class="door door-right">
+                <svg class="horse-icon" viewBox="0 0 24 24"><path d="M19,2C19,2 17,2 16,3C15,4 15,5 14,7C13,9 12.5,10 11,10C9.5,10 8,10 7,9C6,8 5,6 5,6C5,6 4.5,6.5 4,7C3.5,7.5 3,8.5 3,10C3,11.5 3.5,13 4,14C4.5,15 6,17 7,18C8,19 10,21 13,21C16,21 18,20 19,19C20,18 21,16 21,14C21,12 21,10 20,8C19,6 19,4 19,2M13,19C11,19 9.5,18 9,17C8.5,16 8.5,15 9,14C9.5,13 11,12 13,12C15,12 16.5,13 17,14C17.5,15 17.5,16 17,17C16.5,18 15,19 13,19Z"/></svg>
+            </div>
+
+            <div id="cards-area" class="cards-container">
+                <div class="fortune-card card-0" id="card-0">
+                    <svg class="w-12 h-12 opacity-30 fill-white" viewBox="0 0 24 24"><path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z"/></svg>
+                </div>
+                <div class="fortune-card card-1" id="card-1">
+                    <div class="fortune-stick" id="stick"></div>
+                    <svg class="horse-icon opacity-70" viewBox="0 0 24 24"><path d="M19,2C19,2 17,2 16,3C15,4 15,5 14,7C13,9 12.5,10 11,10C9.5,10 8,10 7,9C6,8 5,6 5,6C5,6 4.5,6.5 4,7C3.5,7.5 3,8.5 3,10C3,11.5 3.5,13 4,14C4.5,15 6,17 7,18C8,19 10,21 13,21C16,21 18,20 19,19C20,18 21,16 21,14C21,12 21,10 20,8C19,6 19,4 19,2M13,19C11,19 9.5,18 9,17C8.5,16 8.5,15 9,14C9.5,13 11,12 13,12C15,12 16.5,13 17,14C17.5,15 17.5,16 17,17C16.5,18 15,19 13,19Z"/></svg>
+                </div>
+                <div class="fortune-card card-2" id="card-2">
+                    <svg class="w-12 h-12 opacity-30 fill-white" viewBox="0 0 24 24"><path d="M12,22L1,3H23L12,22Z"/></svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls-wrapper">
+            <button id="shuffle-btn" class="btn-lsp btn-shuffle" onclick="toggleShuffle()">Xào Quẻ</button>
+            <button id="draw-btn" class="btn-lsp btn-draw" onclick="stopAndDraw()" disabled>Bốc Lộc</button>
+        </div>
+        <div id="hint">Chạm cổng Tân Xuân để bắt đầu</div>
+    </div>
+
+    <div id="result-modal">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div id="loader" class="loader"></div>
+            <div id="error-container" style="display: none;">
+                <p id="error-msg" class="text-red-600 font-bold mb-4">⚠️ Kết nối bị gián đoạn, hãy thử lại!</p>
+                <button class="p-3 bg-red-100 rounded-lg w-full font-bold text-red-800" onclick="closeModal()">Đóng</button>
+            </div>
+            <div id="analysis-content" style="display: none;">
+                <div class="score-box"><span id="score-val" class="score-val">--</span><span class="text-[9px] font-black opacity-60 uppercase">Năng Lượng</span></div>
+                <h2 id="que-title" class="text-2xl font-black mb-6 uppercase tracking-tight text-red-700 font-serif"></h2>
+                <div class="section-title">🧧 Lời phán Xuân Bính Ngọ</div>
+                <div class="analysis-text" id="path-text"></div>
+                <div class="section-title">🐎 Chiến lược bứt phá</div>
+                <div id="action-list" class="space-y-3 mb-8"></div>
+                <div class="flex flex-col gap-3">
+                    <button id="tts-btn" class="p-4 bg-orange-50 rounded-xl font-bold flex items-center justify-center gap-2 border border-orange-200" onclick="readFortune()">🔊 ✨ Nghe Thầy Bói Phán</button>
+                    <button class="p-5 bg-gradient-to-r from-red-600 to-red-800 text-yellow-300 rounded-xl font-black uppercase tracking-widest shadow-xl border-b-4 border-red-900" onclick="closeModal()">Nhận Lộc May Mắn</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // QUAN TRỌNG: Bạn phải dán API Key của mình vào đây để hệ thống hoạt động!
+        const apiKey = ""; 
+
+        let isProcessing = false, isShuffling = false, isPortalOpen = false, currentFortuneData = null;
+
+        function createPetals() {
+            const container = document.getElementById('petal-container');
+            const colors = ['#fffacd', '#ffb7c5', '#ffdab9']; 
+            for(let i=0; i<30; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                const size = Math.random() * 8 + 8;
+                petal.style.width = size + 'px'; petal.style.height = size + 'px';
+                petal.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+                petal.style.borderRadius = '50% 0 50% 50%';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animationDuration = Math.random() * 4 + 4 + 's';
+                petal.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(petal);
+            }
+        }
+        createPetals();
+
+        async function callGemini(prompt, isTTS = false) {
+            if (!apiKey) {
+                throw new Error("Missing API Key. Hãy dán API Key vào mã nguồn.");
+            }
+            const model = isTTS ? "gemini-2.5-flash-preview-tts" : "gemini-2.5-flash-preview-09-2025";
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+            
+            const payload = isTTS ? {
+                contents: [{ parts: [{ text: `Phán bằng tiếng Việt ấm áp: ${prompt}` }] }],
+                generationConfig: { responseModalities: ["AUDIO"], speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } } }
+            } : {
+                contents: [{ parts: [{ text: prompt }] }],
+                generationConfig: { 
+                    responseMimeType: "application/json", 
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            score: { type: "NUMBER" }, path: { type: "STRING" },
+                            actions: { type: "ARRAY", items: { type: "STRING" } },
+                            summary: { type: "STRING" }, type_picked: { type: "STRING" }
+                        },
+                        required: ["score", "path", "actions", "summary", "type_picked"]
+                    }
+                },
+                systemInstruction: { parts: [{ text: "Bạn là Thầy Bói tại LSP Agency 2026. Phân tích quẻ JSON. 'score' (0-10). 'path' vận trình năm Ngọ. 'actions' 3 bước bứt phá. 'summary' câu chúc Tết. 'type_picked' loại quẻ (Tài Lộc, Sức Khỏe, Công Việc) chọn ngẫu nhiên đồng đều. Tuyệt đối không dùng từ AI." }] }
+            };
+
+            for (let i = 0; i < 3; i++) {
+                try {
+                    const response = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    if (!response.ok) throw new Error();
+                    return await response.json();
+                } catch (e) {
+                    await new Promise(r => setTimeout(r, 1000 * (i + 1)));
+                }
+            }
+            throw new Error("Connection failed after retries");
+        }
+
+        function handlePortalClick() {
+            if (isProcessing) return;
+            isPortalOpen = !isPortalOpen;
+            const portal = document.getElementById('portal');
+            if (isPortalOpen) {
+                portal.classList.add('open');
+                document.getElementById('hint').style.opacity = '0';
+            } else {
+                portal.classList.remove('open');
+                document.getElementById('hint').style.opacity = '1';
+                if (isShuffling) toggleShuffle();
+            }
+        }
+
+        function toggleShuffle() {
+            if (isProcessing) return;
+            isShuffling = !isShuffling;
+            const cards = [document.getElementById('card-0'), document.getElementById('card-1'), document.getElementById('card-2')];
+            const shuffleBtn = document.getElementById('shuffle-btn');
+            const drawBtn = document.getElementById('draw-btn');
+            
+            if (isShuffling) {
+                cards.forEach((card, i) => card.classList.add(`card-anim-${i}`));
+                shuffleBtn.classList.add('active'); shuffleBtn.innerText = "Dừng Lại";
+                drawBtn.disabled = false;
+            } else {
+                cards.forEach((card, i) => card.classList.remove(`card-anim-${i}`));
+                shuffleBtn.classList.remove('active'); shuffleBtn.innerText = "Xào Quẻ";
+            }
+        }
+
+        function stopAndDraw() {
+            if (isProcessing) return;
+            isProcessing = true;
+            const cards = [document.getElementById('card-0'), document.getElementById('card-2'), document.getElementById('card-1')];
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    for (let i = 0; i < 3; i++) card.classList.remove(`card-anim-${i}`);
+                    if (index === cards.length - 1) {
+                        isShuffling = false;
+                        document.getElementById('shuffle-btn').classList.remove('active');
+                        document.getElementById('shuffle-btn').innerText = "Xào Quẻ";
+                        document.getElementById('draw-btn').disabled = true;
+                        const stick = document.getElementById('stick');
+                        stick.classList.add('drop-stick');
+                        setTimeout(() => { stick.classList.remove('drop-stick'); handleLixi(); }, 1000);
+                    }
+                }, index * 400); 
+            });
+        }
+
+        async function handleLixi() {
+            const modal = document.getElementById('result-modal');
+            analysisContent.style.display = 'none'; errorContainer.style.display = 'none';
+            loader.style.display = 'block'; modal.style.display = 'flex';
+            
+            try {
+                const result = await callGemini(`Gieo một quẻ ngẫu nhiên (Tài Lộc, Sức Khỏe hoặc Công Việc) cho Xuân 2026.`);
+                let rawText = result.candidates[0].content.parts[0].text;
+                currentFortuneData = JSON.parse(rawText.replace(/^[^{]*|[^}]*$/g, '').trim());
+                
+                document.getElementById('que-title').innerText = "Lộc " + currentFortuneData.type_picked;
+                document.getElementById('score-val').innerText = currentFortuneData.score;
+                document.getElementById('path-text').innerText = currentFortuneData.path;
+                document.getElementById('action-list').innerHTML = currentFortuneData.actions.map((act, i) => `
+                    <div class="step-item"><div class="step-num"><span>${i+1}</span></div><div class="text-gray-700 font-medium">${act}</div></div>
+                `).join('');
+                loader.style.display = 'none'; analysisContent.style.display = 'block';
+                createFirework();
+            } catch (err) {
+                loader.style.display = 'none'; errorContainer.style.display = 'block';
+                document.getElementById('error-msg').innerText = err.message.includes("API Key") ? "⚠️ Vui lòng dán API Key vào mã nguồn để tiếp tục!" : "⚠️ Kết nối bị gián đoạn, hãy thử lại!";
+            } finally { isProcessing = false; }
+        }
+
+        async function readFortune() {
+            if (!currentFortuneData) return;
+            const btn = document.getElementById('tts-btn');
+            btn.disabled = true; const original = btn.innerHTML; btn.innerHTML = "⌛ Đang chuẩn bị...";
+            try {
+                const res = await callGemini(currentFortuneData.summary, true);
+                const audioData = res.candidates[0].content.parts[0].inlineData.data;
+                const pcmData = new Int16Array(Uint8Array.from(atob(audioData), c => c.charCodeAt(0)).buffer);
+                const wavBlob = new Blob([pcmToWav(pcmData, 24000)], { type: 'audio/wav' });
+                const audio = new Audio(URL.createObjectURL(wavBlob));
+                audio.play();
+                audio.onended = () => { btn.disabled = false; btn.innerHTML = original; };
+            } catch (e) { btn.innerHTML = "❌ Lỗi âm thanh"; setTimeout(() => { btn.disabled = false; btn.innerHTML = original; }, 2000); }
+        }
+
+        function pcmToWav(pcmData, sampleRate) {
+            const buffer = new ArrayBuffer(44 + pcmData.length * 2);
+            const view = new DataView(buffer);
+            const writeString = (o, s) => { for (let i=0; i<s.length; i++) view.setUint8(o+i, s.charCodeAt(i)); };
+            writeString(0, 'RIFF'); view.setUint32(4, 32 + pcmData.length * 2, true);
+            writeString(8, 'WAVE'); writeString(12, 'fmt '); view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true); view.setUint16(22, 1, true);
+            view.setUint32(24, sampleRate, true); view.setUint32(28, sampleRate * 2, true);
+            view.setUint16(32, 2, true); view.setUint16(34, 16, true);
+            writeString(36, 'data'); view.setUint32(40, pcmData.length * 2, true);
+            for (let i = 0; i < pcmData.length; i++) view.setInt16(44 + i * 2, pcmData[i], true);
+            return buffer;
+        }
+
+        function closeModal() { document.getElementById('result-modal').style.display = 'none'; isProcessing = false; }
+
+        function createFirework() {
+            for(let i=0; i<50; i++) {
+                const p = document.createElement('div');
+                p.style.position = 'fixed'; p.style.width = '7px'; p.style.height = '7px';
+                p.style.backgroundColor = ['#ffd700', '#ff0000', '#ffffff'][Math.floor(Math.random()*3)];
+                p.style.borderRadius = '50%'; p.style.left = '50%'; p.style.top = '50%'; p.style.zIndex = '300';
+                p.style.boxShadow = `0 0 10px ${p.style.backgroundColor}`;
+                document.body.appendChild(p);
+                const angle = Math.random() * Math.PI * 2;
+                const dist = 140 + Math.random() * 260;
+                p.animate([{ transform: 'translate(0, 0) scale(1)', opacity: 1 }, { transform: `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px) scale(0)`, opacity: 0 }], {
+                    duration: 1200 + Math.random() * 800, easing: 'ease-out'
+                }).onfinish = () => p.remove();
+            }
+        }
+    </script>
+</body>
+</html>
